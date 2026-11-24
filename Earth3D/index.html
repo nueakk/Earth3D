@@ -1,0 +1,166 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <title>Earth 3D | Global Terrain Visualization</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app">
+        <header>
+            <div>
+                <div class="eyebrow">INTERACTIVE PLANET EXPLORER</div>
+                <h1>Earth <span>3D</span></h1>
+                <p>Global Terrain Visualization</p>
+            </div>
+            <div class="source-badge">NOAA · ETOPO 2022</div>
+        </header>
+
+        <main class="workspace">
+            <section class="viewer">
+                <div class="viewer-header">
+                    <span>GLOBAL RELIEF MODEL</span>
+                    <span id="status">Loading...</span>
+                </div>
+
+                <canvas id="glCanvas"
+                        width="900" height="700"></canvas>
+
+                <div class="viewer-footer">
+                    Drag to rotate · Scroll to zoom
+                </div>
+            </section>
+
+            <aside class="panel">
+                <div class="eyebrow">MODEL SETTINGS</div>
+                <h2>Control Panel</h2>
+
+                <div class="control">
+                    <label for="speed">
+                        Rotation Speed
+                        <output id="speedValue">1.0×</output>
+                    </label>
+                    <input type="range" id="speed"
+                           min="0" max="3" step="0.1" value="1">
+                </div>
+
+                <div class="control">
+                    <label for="terrain">
+                        Terrain Exaggeration
+                        <output id="terrainValue">35×</output>
+                    </label>
+                    <input type="range" id="terrain"
+                           min="0" max="100" step="1" value="35">
+                    <div class="range-labels">
+                        <span>Flat sphere</span>
+                        <span>Exaggerated</span>
+                    </div>
+                </div>
+
+                <div class="control">
+                    <label for="light">
+                        Light Intensity
+                        <output id="lightValue">75%</output>
+                    </label>
+                    <input type="range" id="light"
+                           min="0" max="100" value="75">
+                </div>
+
+                <div class="control">
+                    <label for="direction">
+                        Light Direction
+                        <output id="directionValue">225°</output>
+                    </label>
+                    <input type="range" id="direction"
+                           min="0" max="360" value="225">
+                </div>
+
+                <div class="control">
+                    <label for="zoom">
+                        Zoom
+                        <output id="zoomValue">1.0×</output>
+                    </label>
+                    <input type="range" id="zoom"
+                           min="0.5" max="2" step="0.05" value="1">
+                </div>
+
+                <div class="buttons">
+                    <button id="toggleRotation">
+                        Pause Rotation
+                    </button>
+                    <button id="reset" class="secondary">
+                        Reset Settings
+                    </button>
+                </div>
+
+                <div class="legend">
+                    <h3>Elevation Legend</h3>
+
+                    <div class="legend-item">
+                        <i style="background:#fafafa"></i>
+                        High mountains
+                    </div>
+                    <div class="legend-item">
+                        <i style="background:#826044"></i>
+                        Mountainous terrain
+                    </div>
+                    <div class="legend-item">
+                        <i style="background:#a69559"></i>
+                        Highlands
+                    </div>
+                    <div class="legend-item">
+                        <i style="background:#467b32"></i>
+                        Lowlands
+                    </div>
+                    <div class="legend-item">
+                        <i style="background:#1e8cc7"></i>
+                        Shallow ocean
+                    </div>
+                    <div class="legend-item">
+                        <i style="background:#061440"></i>
+                        Deep ocean
+                    </div>
+                </div>
+            </aside>
+        </main>
+
+        <section class="statistics">
+            <article>
+                <span>ELEVATION DATA POINTS</span>
+                <strong id="dataCount">—</strong>
+                <small>Global elevation samples</small>
+            </article>
+            <article>
+                <span>MESH VERTICES</span>
+                <strong id="vertexCount">—</strong>
+                <small>3D surface coordinates</small>
+            </article>
+            <article>
+                <span>TRIANGLES</span>
+                <strong id="triangleCount">—</strong>
+                <small>Surface mesh elements</small>
+            </article>
+            <article>
+                <span>DATA RESOLUTION</span>
+                <strong>1° × 1°</strong>
+                <small>Latitude and longitude</small>
+            </article>
+        </section>
+
+        <footer>
+            <span>Earth 3D · WebGL Terrain Visualization</span>
+            <a href="https://www.ncei.noaa.gov/products/etopo-global-relief-model"
+               target="_blank" rel="noopener noreferrer">
+                Data Source: NOAA ETOPO 2022
+            </a>
+        </footer>
+    </div>
+
+    <script src="shaders.js"></script>
+    <script src="earth.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>
